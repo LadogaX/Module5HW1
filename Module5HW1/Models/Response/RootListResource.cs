@@ -17,7 +17,7 @@ namespace Module5HW1.Models
             public int TotalPages { get; set; }
 
             [JsonProperty("data")]
-            public List<DataResourceResponse> DataResources { get; set; }
+            public List<DataResourceResponse>? DataResources { get; set; }
 
             [JsonProperty("support")]
             public SupportResponse? Support { get; set; }

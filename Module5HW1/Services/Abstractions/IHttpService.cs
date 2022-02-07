@@ -2,6 +2,6 @@
 {
     public interface IHttpService
     {
-        public Task<string> SendHttpAsync<T>(Uri uri, HttpMethod httpMethod, HttpContent httpContent = null);
+        public Task<string> SendHttpAsync<T>(Uri uri, HttpMethod httpMethod, HttpContent? httpContent = null);
     }
 }

@@ -20,27 +20,27 @@ namespace Module5HW1
             _resourseService = resourseService;
         }
 
-        public async Task Run()
+        public Task Run()
         {
             var list = new List<Task>();
 
             // LIST USERS
-            list.Add(Task.Run(async () => { await _userService.GetResponse<RootListUserResponse>("/api/users?page=2"); }));
+            list.Add(Task.Run(async () => await _userService.GetResponse<RootListUserResponse>("/api/users?page=2")));
 
             // SINGLE USER
-            list.Add(Task.Run(async () => { await _userService.GetResponse<RootSingleUserResponse>("/api/users/2"); }));
+            list.Add(Task.Run(async () => await _userService.GetResponse<RootSingleUserResponse>("/api/users/2")));
 
             // SINGLE USER NOT FOUND
-            list.Add(Task.Run(async () => { await _userService.GetResponse<RootSingleUserResponse>("/api/users/23"); }));
+            list.Add(Task.Run(async () => await _userService.GetResponse<RootSingleUserResponse>("/api/users/23")));
 
             // LIST <RESOURCE>
-            list.Add(Task.Run(async () => { await _resourseService.GetResponse<RootListResource>("/api/unknown"); }));
+            list.Add(Task.Run(async () => await _resourseService.GetResponse<RootListResource>("/api/unknown")));
 
             // SINGLE <RESOURCE>
-            list.Add(Task.Run(async () => { await _resourseService.GetResponse<RootSingleResourceResponse>("/api/unknown/2"); }));
+            list.Add(Task.Run(async () => await _resourseService.GetResponse<RootSingleResourceResponse>("/api/unknown/2")));
 
             // SINGLE <RESOURCE> NOT FOUND
-            list.Add(Task.Run(async () => { await _userService.GetResponse<RootListResource>("/api/unknown/23"); }));
+            list.Add(Task.Run(async () => await _userService.GetResponse<RootListResource>("/api/unknown/23")));
 
             // CREATE
             var userMorpheus2 = new { name = "morpheus", job = "leader" };
@@ -73,11 +73,12 @@ namespace Module5HW1
             list.Add(Task.Run(async () => await _authorizationService.GetResponse<ErrorResponse>("api/register", requreObject4)));
 
             // DELAYED RESPONSE
-            list.Add(Task.Run(async () => { await _userService.GetResponse<RootListUserResponse>("api/users?delay=3"); }));
+            list.Add(Task.Run(async () => await _userService.GetResponse<RootListUserResponse>("api/users?delay=3")));
 
             Task.WaitAll(list.ToArray());
 
             Console.WriteLine("Done");
+            return Task.CompletedTask;
         }
     }
 }

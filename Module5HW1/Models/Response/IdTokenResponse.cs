@@ -6,6 +6,6 @@ namespace Module5HW1.Models
     {
         public int Id { get; set; }
 
-        public string Token { get; set; }
+        public string? Token { get; set; }
     }
 }

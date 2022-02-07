@@ -2,7 +2,7 @@
 {
     public interface IAuthorizationService
     {
-        public Task<string> GetResponse<T>(string apiQuaryString, string jsonSerializableString);
-        public Task<string> GetResponse<TResponse>(string apiQuaryString, object requareObject);
+        public Task<T> GetResponse<T>(string apiQuaryString, string jsonSerializableString);
+        public Task<T> GetResponse<T>(string apiQuaryString, object requareObject);
     }
 }

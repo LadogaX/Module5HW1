@@ -17,7 +17,7 @@ namespace Module5HW1.Services
             _domainName = _configService.Config.Domain;
         }
 
-        public async Task<string> GetResponse<TResponse>(string apiQuaryString)
+        public async Task<TResponse> GetResponse<TResponse>(string apiQuaryString)
         {
             Uri uri = new (new (_domainName), apiQuaryString);
             HttpMethod method = HttpMethod.Get;

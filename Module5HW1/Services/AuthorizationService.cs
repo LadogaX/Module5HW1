@@ -17,7 +17,7 @@ namespace Module5HW1.Services
             _domainName = _configService.Config.Domain;
         }
 
-        public async Task<string> GetResponse<TResponse>(string apiQuaryString, string jsonSerializableString)
+        public async Task<TResponse> GetResponse<TResponse>(string apiQuaryString, string jsonSerializableString)
         {
             Uri uriBase = new (_domainName);
             Uri uri = new (uriBase, apiQuaryString);
@@ -27,10 +27,10 @@ namespace Module5HW1.Services
             return await _httpService.SendHttpAsync<TResponse>(uri, method, httpContent);
         }
 
-        public async Task<string> GetResponse<TResponse>(string apiQuaryString, object requareObject)
+        public async Task<TResponse> GetResponse<TResponse>(string apiQuaryString, object requareObject)
         {
             var jsonObjectString = JsonConvert.SerializeObject(requareObject);
-            return await GetResponse<IdTokenResponse>(apiQuaryString, jsonObjectString);
+            return await GetResponse<TResponse>(apiQuaryString, jsonObjectString);
         }
     }
 }

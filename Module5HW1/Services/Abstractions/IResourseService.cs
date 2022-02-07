@@ -2,6 +2,6 @@
 {
     public interface IResourseService
     {
-        public Task<string> GetResponse<TResponse>(string apiQuaryString);
+        public Task<TResponse> GetResponse<TResponse>(string apiQuaryString);
     }
 }

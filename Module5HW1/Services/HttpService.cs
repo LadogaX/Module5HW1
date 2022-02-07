@@ -13,11 +13,12 @@ namespace Module5HW1.Services
             _httpClient = new HttpClient() !;
         }
 
-        public async Task<string> SendHttpAsync<TResponse>(Uri uri, HttpMethod httpMethod, HttpContent? httpContent = null)
+        public async Task<TResponse?> SendHttpAsync<TResponse>(Uri uri, HttpMethod httpMethod, object? httpContent = null)
         {
             string? contentString = null;
+
             var httpMessage = new HttpRequestMessage();
-            httpMessage.Content = httpContent;
+            httpMessage.Content = httpContent is HttpContent ? (HttpContent)httpContent : null;
             httpMessage.Method = httpMethod;
             httpMessage.RequestUri = uri;
 
@@ -26,11 +27,10 @@ namespace Module5HW1.Services
             if (result.IsSuccessStatusCode || result.StatusCode == HttpStatusCode.BadRequest)
             {
                 contentString = await result.Content.ReadAsStringAsync();
-                JsonConvert.DeserializeObject<TResponse>(contentString);
+                return JsonConvert.DeserializeObject<TResponse>(contentString);
             }
 
-           // Console.WriteLine($"path:{uri.OriginalString} quary:{uri.Query} Result:{result.StatusCode}");
-            return contentString;
+            return default;
         }
     }
 }

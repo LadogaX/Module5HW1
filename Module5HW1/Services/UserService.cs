@@ -17,7 +17,7 @@ namespace Module5HW1.Services
             _domainName = _configService.Config.Domain;
         }
 
-        public async Task<string> GetResponse<TResponse>(string apiQuaryString)
+        public async Task<TResponse> GetResponse<TResponse>(string apiQuaryString)
         {
             Uri uri = new (new (_domainName), apiQuaryString);
             HttpMethod method = HttpMethod.Get;
@@ -25,7 +25,7 @@ namespace Module5HW1.Services
             return await _httpService.SendHttpAsync<TResponse>(uri, method);
         }
 
-        public async Task<string> GetResponse<TResponse>(string apiQuaryString, string jsonSerializableString, HttpMethod method)
+        public async Task<TResponse> GetResponse<TResponse>(string apiQuaryString, string jsonSerializableString, HttpMethod method)
         {
             Uri uri = new (new (_domainName), apiQuaryString);
             HttpContent httpContent = new StringContent(jsonSerializableString, Encoding.UTF8, "application/json");
@@ -33,19 +33,19 @@ namespace Module5HW1.Services
             return await _httpService.SendHttpAsync<TResponse>(uri, method, httpContent);
         }
 
-        public async Task<string> CreateUser<TResponse>(string apiString, object requareObject)
+        public async Task<TResponse> CreateUser<TResponse>(string apiString, object requareObject)
         {
             var jsonObjectString = JsonConvert.SerializeObject(requareObject);
             return await GetResponse<TResponse>(apiString, jsonObjectString, HttpMethod.Post);
         }
 
-        public async Task<string> UserUpDate<TResponse>(string apiString, object requareObject, HttpMethod httpMethod)
+        public async Task<TResponse> UserUpDate<TResponse>(string apiString, object requareObject, HttpMethod httpMethod)
         {
             var jsonObjectString = JsonConvert.SerializeObject(requareObject);
             return await GetResponse<TResponse>(apiString, jsonObjectString, httpMethod);
         }
 
-        public async Task<string> UserDelete<TResponse>(string apiString, object requareObject)
+        public async Task<TResponse> UserDelete<TResponse>(string apiString, object requareObject)
         {
             var jsonObjectString = JsonConvert.SerializeObject(requareObject);
             return await GetResponse<TResponse>(apiString, jsonObjectString, HttpMethod.Delete);
